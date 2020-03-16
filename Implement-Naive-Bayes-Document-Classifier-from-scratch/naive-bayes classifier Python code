@@ -1,0 +1,84 @@
+from collections import Counter, defaultdict
+import scipy.stats as st
+import pandas as pd
+import numpy as np
+import operator
+import timeit
+import math
+
+df1=pd.read_csv('training.csv',header=None)
+vocabulary=pd.read_table('voc.txt',header=None)
+df3=pd.read_csv('testing.csv',header=None)
+
+#separate training set from response
+
+dftr=np.asarray(df1.iloc[0:12000,1:61189])
+newsgrouplabels=df1.iloc[0:12000,61189]
+dft=np.asarray(df3.iloc[0:6775,1:61189])
+
+#calculating the prior probabilities
+
+def prior(response):
+    total_observation = len(response)
+    probability = dict(Counter(response))
+    for key in probability.keys():
+        probability[key] = probability[key] / float(total_observation)
+    return probability
+
+prior_prob = prior(newsgrouplabels)
+#prior_prob
+
+beta=1/61188
+alpha=beta+1
+
+#count the occurrences of the features class-wise.
+
+start_time = timeit.default_timer()
+
+groups     = np.unique(newsgrouplabels)
+rows, cols  = np.shape(dftr)
+LE = {}
+for grp in groups:
+    LE[grp] = defaultdict(list)
+
+for grp in groups:
+    l=[]
+    row_no = np.where(newsgrouplabels == grp)[0]
+    subset      = dftr[row_no, :]
+    r, c        = pd.DataFrame((subset)).shape
+    for j in range(0, c):
+        l.append((sum(subset[:,j])+(alpha-1))/((sum(pd.DataFrame(subset)))+((alpha-1))*61188))
+    LE[grp] = l
+    
+print("--- %s seconds ---" % (timeit.default_timer() - start_time))
+
+#classify the validate sets 
+
+results = {}
+
+def classify(test_sample):
+    for cls in groups:
+        class_prob = prior_prob[cls]
+        for i in range(0,len(test_sample)):
+            if test_sample[i] > 0:
+                class_prob += math.log10(LE[cls][i])
+            else:
+                class_prob *= 1
+        results[cls] = class_prob    
+    return max(results, key=results.get)
+
+#classify all test data
+
+fun_dic={}
+
+start_time = timeit.default_timer()
+for fun in range(0,len(dft)):
+    fun_dic[df3.iloc[fun,0]]=classify(dft[fun,0:61188])
+    
+print("--- %s seconds ---" % (timeit.default_timer() - start_time))
+
+#export data to csv file
+
+d=pd.DataFrame([fun_dic])
+d=d.transpose()
+d.to_csv("cs579final.csv")
