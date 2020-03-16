@@ -1,0 +1,14 @@
+Project 3: Music classifier 
+The project task is to implement Music classifier for document classification as specified in our project report. We will use the GTZAN dataset, which is frequently used to benchmark music genre classification tasks. It is organized into 10 distinct genres: blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, and rock. The dataset contains the first 30 seconds of 100 songs per genre. Additionally, there is  a validation folder with 100 unlabeled songs. The tracks are recorded at 22,050 Hz (22,050 readings per second) mono in the au format.
+Getting Started
+We Implement the Music classifier by using python. We start with importing dataset. We use soundfile python library to read the au format audio file. To read from computer location we use OS library of python. We import panda, numpyarray, librosa and some other packages for data preprocessing and we also use sklearn for using different classifier.
+To get the confusion matrix to analyze our method we separate training set to 70%-30% and by using 30% data we found confusion matrix for every classifier & feature we used.
+We use very basic plot library of python matplotlib to plot the confusion matrix and other graph.
+Prerequisites
+We use python anaconda (https://medium.com/@GalarnykMichael/install-python-on-windows-anaconda-c63c7c3d1444) and use very basic library for preparing data and some scientific calculation. 
+Running the tests
+After installing python anaconda we need to install editor. We used Jupiter notebook. We also need to install library for numpy, sklearn, numpy, pandas, operator,math, scipy.stats to export data and to do different mathematical calculation.
+Acknowledgments
+1.	Machine Learning, Tom Mitchell. ISBN-10: 0070428077 | ISBN-13: 978-0070428072
+2.	https://stackoverflow.com
+ 
