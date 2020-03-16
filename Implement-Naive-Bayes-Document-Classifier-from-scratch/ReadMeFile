@@ -1,0 +1,15 @@
+Project 2: Naive Bayes Document Classifier 
+The project task is to implement Naive Bayes for document classification as specified in our project report. The 20 Newsgroups dataset is a collection of approximately 20,000 newsgroup documents, partitioned (nearly) evenly across 20 different newsgroups. 
+Getting Started
+We Implement the Naive Bayes Document Classifier by using python. We start with importing dataset. At first we calculate the prior probabilities from class variable. We use very simple function in association with very popular python’s dictionary. Which is fast enough and user friendly. Then we calculate MAP to get every word’s probability with all the class of the training set. And finally we classify validation set by another simple function. The total time taken to run the whole code 10000sec.
+To get the confusion matrix to analyze our method we separate training set to 10001 for training and 1999 for validation set. We trained our classifier with the training set. Then we classify our validation set and found around 80% accuracy. We create the confusion matrix of 1999 test set to explore our method more closely.
+We use very basic plot library of python matplotlib to plot the accuracy vs beta value. We use logarithmic scale in x axis to get a better visualization. 
+And finally we calculate entropy of every words probability to find calculate highest ranking word where the naïve Bayes classifier rely on. To do this we use entropy function and dictionary.
+Prerequisites
+We use python anaconda (https://medium.com/@GalarnykMichael/install-python-on-windows-anaconda-c63c7c3d1444) and use very basic library for preparing data and some scientific calculation. 
+Running the tests
+After installing python anaconda we need to install editor. We used Jupiter notebook. We also need to install library for numpy, collections, numpy, pandas, operator,math, scipy.stats to export data and to do different mathematical calculation.
+Acknowledgments
+1.	Machine Learning, Tom Mitchell. ISBN-10: 0070428077 | ISBN-13: 978-0070428072
+2.	https://stackoverflow.com
+ 
